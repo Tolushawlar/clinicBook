@@ -32,14 +32,14 @@ Edit `frontend/config.js` to change `apiBase` or `apiKey`. The built-in page ser
 
 ## Environment
 
-| Variable | Purpose |
-| --- | --- |
-| `API_KEY` | Value required in the `X-API-Key` header |
-| `PORT` | HTTP port (default `3000`) |
-| `SUPABASE_URL` | Supabase project URL |
-| `SUPABASE_SERVICE_ROLE_KEY` | Server-side key (bypasses RLS; never expose it) |
-| `SUPABASE_ANON_KEY` | Optional fallback key |
-| `CORS_ORIGIN` | Optional comma-separated allowed browser origins; unset allows all |
+| Variable                      | Purpose                                                            |
+| ----------------------------- | ------------------------------------------------------------------ |
+| `API_KEY`                   | Value required in the `X-API-Key` header                         |
+| `PORT`                      | HTTP port (default `3000`)                                       |
+| `SUPABASE_URL`              | Supabase project URL                                               |
+| `SUPABASE_SERVICE_ROLE_KEY` | Server-side key (bypasses RLS; never expose it)                    |
+| `SUPABASE_ANON_KEY`         | Optional fallback key                                              |
+| `CORS_ORIGIN`               | Optional comma-separated allowed browser origins; unset allows all |
 
 The local API key default is `koya-booking-key-2026`.
 
@@ -67,14 +67,14 @@ RLS is enabled on the tables and only the service role is granted access.
 
 ## Endpoints
 
-| Method | Path | Level | Notes |
-| --- | --- | --- | --- |
-| POST | `/reset` | 1 | Replace all slots and delete all bookings |
-| GET | `/slots` | 1 | Earliest first; optional `?provider=` exact match |
-| POST | `/bookings` | 1-5 | Book a slot |
-| GET | `/bookings/:id` | 1 | Look up one booking |
-| DELETE | `/bookings/:id` | 3 | Cancel (sets `cancelled`, frees slot) |
-| GET | `/bookings?email=` | 4 | Cursor pagination (`limit` 1-50, default 10) |
+| Method | Path                 | Level | Notes                                               |
+| ------ | -------------------- | ----- | --------------------------------------------------- |
+| POST   | `/reset`           | 1     | Replace all slots and delete all bookings           |
+| GET    | `/slots`           | 1     | Earliest first; optional `?provider=` exact match |
+| POST   | `/bookings`        | 1-5   | Book a slot                                         |
+| GET    | `/bookings/:id`    | 1     | Look up one booking                                 |
+| DELETE | `/bookings/:id`    | 3     | Cancel (sets `cancelled`, frees slot)             |
+| GET    | `/bookings?email=` | 4     | Cursor pagination (`limit` 1-50, default 10)      |
 
 ### Booking request
 
@@ -131,6 +131,7 @@ The frontend is a static site in `frontend/` with no build step.
    ```js
    apiBase: isLocal ? "http://localhost:3000" : "https://clinic-booking-api.onrender.com",
    ```
+
    Keep the API key in sync with the `API_KEY` value on Render.
 2. Push the repo to GitHub.
 3. In Vercel, **Add New > Project** and import the repo.
@@ -140,15 +141,3 @@ The frontend is a static site in `frontend/` with no build step.
 7. Set `CORS_ORIGIN` on Render to the Vercel URL (no trailing slash) and redeploy the backend.
 
 `frontend/vercel.json` already pins the build command and output directory.
-
-**Temporary public URL (local):**
-
-```bash
-npm start
-ngrok http 3000
-```
-
-## Notes
-
-- The web page loads `/config.js`, which exposes the API key to the browser so the demo page can call the API directly. For a production app, proxy calls through the server instead.
-- Never ship `SUPABASE_SERVICE_ROLE_KEY` to the browser; it is only used by the Express server.
