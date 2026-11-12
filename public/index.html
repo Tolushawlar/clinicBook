@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Clinic Booking</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap">
+        <p class="eyebrow">Clinic appointments</p>
+        <h1>Book your visit</h1>
+        <p class="lede">Choose an available slot, tell us who you are, and get an instant confirmation.</p>
+      </div>
+    </header>
+
+    <main class="wrap layout">
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Available slots</h2>
+          <button id="refresh-slots" class="btn ghost" type="button">Refresh</button>
+        </div>
+        <p id="slots-status" class="muted">Loading slots…</p>
+        <div id="slot-list" class="slot-list" aria-live="polite"></div>
+      </section>
+
+      <section class="panel">
+        <h2>Your details</h2>
+        <form id="booking-form" novalidate>
+          <div id="selected-slot" class="selected-slot">No slot selected yet.</div>
+
+          <label class="field">
+            <span>Name</span>
+            <input id="name" name="name" type="text" autocomplete="name" placeholder="Ada Obi" required />
+          </label>
+
+          <label class="field">
+            <span>Email</span>
+            <input id="email" name="email" type="email" autocomplete="email" placeholder="ada@example.com" required />
+          </label>
+
+          <button class="btn primary" type="submit">Book appointment</button>
+          <p id="form-error" class="error" role="alert" hidden></p>
+        </form>
+
+        <div id="confirmation" class="confirmation" hidden>
+          <span class="badge success">Confirmed</span>
+          <h3>You're booked</h3>
+          <dl id="confirmation-details"></dl>
+          <p class="muted small">Keep your booking ID to look it up or cancel later.</p>
+        </div>
+      </section>
+    </main>
+
+    <section class="wrap panel bookings-panel">
+      <div class="panel-head">
+        <h2>My bookings</h2>
+      </div>
+      <form id="lookup-form" class="lookup-form">
+        <label class="field inline">
+          <span>Email</span>
+          <input id="lookup-email" type="email" autocomplete="email" placeholder="ada@example.com" required />
+        </label>
+        <button class="btn ghost" type="submit">Show bookings</button>
+      </form>
+      <p id="lookup-error" class="error" role="alert" hidden></p>
+      <ul id="bookings-list" class="bookings-list" aria-live="polite"></ul>
+      <button id="load-more" class="btn ghost" type="button" hidden>Load more</button>
+    </section>
+
+    <footer class="wrap footer">
+      <p>Clinic booking demo · <span id="api-note">API key loaded</span></p>
+    </footer>
+
+    <script src="/config.js"></script>
+    <script src="/app.js"></script>
+  </body>
+</html>
